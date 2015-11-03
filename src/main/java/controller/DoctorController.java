@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import model.Doctor;
 import database.doctorSQLRequester;
 
@@ -29,7 +30,7 @@ public class DoctorController {
     }
 
 	@RequestMapping(value = "/sebacia/doctor", method = RequestMethod.GET)
-    public List<Doctor> getDoctors(@RequestParam(value="Doc_ID", defaultValue="-1") int doc_ID, 
+    public @ResponseBody List<Doctor> getDoctors(@RequestParam(value="Doc_ID", defaultValue="-1") int doc_ID, 
     							   @RequestParam(value="Severity", defaultValue="-1") int requestedSeverity, 
     							   @RequestParam(value="MaxLong", defaultValue="666") double maxLong,
     							   @RequestParam(value="MinLong", defaultValue="666") double minLong,
@@ -38,14 +39,14 @@ public class DoctorController {
     							   throws SQLException, ClassNotFoundException{
     	
     	//TEST CODE
-    	// List<Doctor> ret = new ArrayList<Doctor>();
-    	// int min = 0;
-    	// int max = 6;
-    	// ret.add(new Doctor("Winner", "Winner", doc_ID, requestedSeverity, min-1, maxLat, maxLong));
-    	// ret.add(new Doctor("Bob", "dfsd", min+2, min, max, (double)min, (double)max));
-    	// ret.add(new Doctor("Bob", "dfsd", min+3, min, max, (double)min, (double)max));
-    	
-    	return new doctorSQLRequester().getMatchingDocs(doc_ID, requestedSeverity, maxLong, minLong, maxLat, minLat);
+    	List<Doctor> ret = new ArrayList<Doctor>();
+    	int min = 0;
+    	int max = 6;
+    	ret.add(new Doctor("Winner", "Winner", doc_ID, requestedSeverity, min-1, maxLat, maxLong));
+    	ret.add(new Doctor("Bob", "dfsd", min+2, min, max, (double)min, (double)max));
+    	ret.add(new Doctor("Bob", "dfsd", min+3, min, max, (double)min, (double)max));
+    	return ret;
+    	// return new doctorSQLRequester().getMatchingDocs(doc_ID, requestedSeverity, maxLong, minLong, maxLat, minLat);
     }
 
 }
