@@ -70,17 +70,17 @@ public class doctorSQLRequester {
    		//the QUERY is finished.
 
    		conn = new databaseConnection();
-         conn.openConnection();
+	        conn.openConnection();
 
    		stmt = conn.getConnection().createStatement();
    		ResultSet rs = stmt.executeQuery(query);
-         conn.closeConnection();
-   		while(rs.next()) {
+         	while(rs.next()) {
    			Doctor doc = new Doctor(rs.getString("Doctors_Name"), rs.getString("Doctors_Adress"), 
    								rs.getInt("Doctors_ID"), rs.getInt("Doctors_AnceMin"), rs.getInt("Doctors_AcneMax"), 
    								rs.getDouble("Doctors_Latitude"), rs.getDouble("Doctors_Longitude"));
    			ret.add(doc);
    		}
+		conn.closeConnection();
    		return ret;
    }
 }
